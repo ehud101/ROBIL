@@ -1,20 +1,20 @@
 # Robil over ROS2 guide
-The following will guide you with running Robil project in two states:  
+The following are the steps for running the Robil project in two modes:  
 1. With HECTOR-SLAM  
-Since HECTOR is built to work in ROS1, This will require you to have both ROS1 and ROS2 environments and run the ROS1_Bridge package.
+Since HECTOR is meant to work on top of ROS1, This will require you to have both ROS1 and ROS2 environments and run the ROS1_Bridge package.
 so you must have both ROS versions installed on your machine.
-2. All native ROS2 packages, including the ROS2 SLAM package --> SLAM Toolbox.
+2. With SLAM Toolbox a native ROS2 packages.
 
 # 1. Running Robil with HECTOR-SLAM and ROS-Bridge
-Since we are required to run both versions simultaneously, we must make sure that each terminal is set with **only one** of the versions environment (exept the ros_bridge). It should be absolutely clean from the other ones.
-Therefore, make sure that your terminal is not automatically set with any of ROS's environment variables. means that when you open a new terminal and check the current environment, none is related to ROS.
+Since we are required to run both versions simultaneously, we must make sure that each terminal's environment is set with only **one** of the versions (exept the one running ROS Bridge). It should be absolutely clean from the other ones.
+Therefore, make sure that your terminal is not automatically set with none of ROS's environment variables. Means that when you open a new terminal and check the current environment, no variable is related to ROS.
 
-if it is set automatically try the flollowing:
-1. Remove any source command of ROS setup file from .bashrc file or any other file of this kind.
-2. Check the folder **opt/ros/(your ROS version)/etc/catkin/profile.d**
-This folder might be one of the places the o.s is looking for initial setting of environment variables.
+If it is set automatically try the flollowing:
+1. Remove any source command of ROS setup file from the .bashrc file or any other file of this kind.
+2. Check the folder **opt/ros/(your ROS distro)/etc/catkin/profile.d**
+This folder might be one of the places the Linux is looking for initial setting of environment variables.
 
-Once the terminals are clean follow these steps:
+Once the terminals are clean, follow these steps:
 1. clone/download this repository (https://github.com/ehud101/ROBIL.git).
 This repository contains 4 important file groups:
 
@@ -41,7 +41,7 @@ This repository contains 4 important file groups:
 &nbsp;a. Open a new terminal and source the **bashrc_bridge** file.  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This will set the environment to both ROS1 and ROS2 which is mandatory for ROS1_bridge to work.  
 &nbsp;&nbsp;b. Run the command: **"ros2 run ros1_bridge dynamic_bridge --bridge-all-2to1-topics"**   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This will run the ros1_bridge node and set it to automatically bridge topics from both dierections
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This will run the ros1_bridge node and set it to automatically bridge topics from both directions
 
 6. **Terminal_4:**  
 &nbsp;&nbsp;a. Open a new terminal and source again **.bashrc_ros1**. From this terminal we will run the HECTOR-SLAM  
@@ -62,12 +62,14 @@ An occupancy map should be displayed in RVIZ. move the robot in Unity and watch 
 
 
 # 2. Running ROBIL with SLAM-Toolbox over ROS2
-This is the official project, althogh not complete as well.
+This is the official project, which is still under developement.
 Here we run the project in a clean environment of ROS2. so no need in remapping any messages and types, just using ROS2 native ones.
 
-The main reason for moving to ROS2 is also ROS2 main novelty and the reason it was created: **Networking**
-Though there are many other improvements in compare to ROS1 (such as Python lunch files instead of XML, DDS instead of ROSCore etc.) Networking is the major step of ROS2.
-In ROS2, topics are automatically shared between all clients which are connected in LAN. But eventhough it is mandatory to know how to control the data in order to avoid a huge mess of it.
+The main reason for moving to ROS2 is also ROS2 main novelty and the reason it was created: **Networking**. 
+
+Though there are many other improvements in compare to ROS1 (such as Python launch files instead of XML, DDS instead of ROS-core etc.) Networking is the heart of ROS2.
+
+In ROS2, topics are automatically shared between all clients which are connected in LAN. But even though, it is mandatory to know how to control the data in order to avoid a huge mess of it.
 
 In this project we run again a very similar scene in Unity, But this time the user has an option to run multiple clients over the network. For this we use a package called **"Mirror"** which provides a network manager for Unity.
 (Unity had its own manager which is now deprecated).
@@ -114,7 +116,7 @@ Make sure the Target Platform is set to **Linux**
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d. run the **ROBIL.x86_64** file(the executable file) you've just built and select this time the **Client** Option.
 
-Result: You should see now 2 robots (clients) each is controlled from its own environment. In RVIZ 2 maps should be developed independently- one for each robot client.
+Result: You should see now 2 robots (clients) each is controlled from its own environment. In RVIZ, you should notice two maps being developed independently- one for each robot client.
 
 **Problem**: The TF (transformation frames) of the two clients are not synchronized, for this reason the two maps do not match. This is the next task of the project
 
