@@ -1,0 +1,2 @@
+export ROS_DISTRO=eloquent
+source /opt/ros/$ROS_DISTRO/setup.bash
